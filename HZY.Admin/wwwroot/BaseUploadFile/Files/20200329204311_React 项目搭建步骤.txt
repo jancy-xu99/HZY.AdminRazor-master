@@ -1,0 +1,94 @@
+1、使用 create-react-app 搭建React脚手架 命令如下：
+
+cnpm install -g create-react-app --定义全局的create-react-app 对象
+create-react-app my-app-name --创建app 
+cnpm run eject --将隐藏的webpack 配置文件显示出来
+cnpm start --启动app
+
+2、引入antd-mobile 框架 命令如下：
+cnpm install antd-mobile --save
+npm install babel-plugin-import --save-dev     --自动引入CSS和JS，无需再引入整个antd-mobile的整个CSS文件
+安装完毕后，在根目录新建文件，命名: .babelrc 内容如下：
+{
+  "presets": [
+    "react-app"
+  ],
+  "plugins": [
+    [
+      "import",
+        {
+          "libraryName": "antd-mobile",
+          "style": "css"
+        }
+      ]
+    ]
+}
+
+
+具体参考地址：https://mobile.ant.design/docs/react/use-with-create-react-app-cn
+
+
+
+react.js生命周期分4种流程：
+
+         1.首次渲染：
+
+                 getDefaultProps
+
+                 getInitialState
+
+                 componentWillMount
+
+                 render
+
+                 componentDidMount
+
+        2.当属性props发生变化
+
+             componentWillReceiveProps
+
+             shouldComponentUpdate
+
+             componentWillUpdate
+
+             render
+
+             componentDidUpdate
+
+        3. 当状态state发生变化
+
+            shouldComponentUpdate
+
+            componentWillUpdate
+
+            render
+
+            componentDidUpdate
+
+         4.销毁
+
+             componentWillUnmount
+
+有人直接看到会很懵，不要紧，下面对每个函数做一个解释，就会帮你很容易的理解了：
+
+          getDefaultProps：组件创建之前会先调用，全局性只有一次性
+
+          getInitialState：初始化组件状态
+
+          componentWillMount：组件渲染之前调用，在这里可以做一个对默认属性，默认状态，和组件渲染之前的逻辑操作
+
+          render:渲染组件，此操作会生成一个虚拟DOM存在内存中
+
+          componentDidMount：组件渲染之后的操作，根据业务场景而定，如果有操作在此函数中处理即可
+
+          componentWillReceiveProps：当组件中的默认属性props发生了变化，此方法被调用到
+
+          shouldComponentUpdate：组件接收到新的props或者state的时候调用，此函数返回值决定着原来的组件结构是否重新渲染
+
+          componentWillUpdate：组件第二次渲染之前调用
+
+          componentDidUpdate：组件第二次渲染之后调用
+
+          componentWillUnmount：组件销毁时调用
+
+这些都是react.js规范好的操作流程，从命名上可以看出带有"will"的函数都是在render之前调用，带有"Did"都是在render之后调用，有个这样一个形式，在操作组件UI或扩展业务场景方便了很多。看一下在代码中是怎么呈现组件生命周期定义的：

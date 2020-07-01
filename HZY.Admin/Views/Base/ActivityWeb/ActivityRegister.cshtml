@@ -1,0 +1,108 @@
+﻿@model HZY.Models.Act.RegisterModel
+@{
+    ViewData["Title"] = "绑定信息";
+}
+
+@section Styles{
+    @*<style type="text/css">
+
+            html, body {
+                background: #ffffff;
+            }
+        </style>*@
+}
+@section Scripts{
+
+    <script src="~/admin/libs/neditor/i18n/zh-cn/zh-cn.js"></script>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: "#app",
+            data: function () {
+                return {
+
+                    form: {
+                        saveState: false,
+                        vm: {
+                            Id: '@Model',
+                            ActId:'',
+                            Model: {},
+                            User: {}
+                        },
+                    }
+
+                }
+            },
+            created: function () {
+                this.loadForm();
+            },
+            mounted: function () {
+                console.log("数据加载过程");
+
+            },
+            methods: {
+                loadForm: function () {
+
+                },
+
+                login: function () {
+                    var path = `@Url.Action("ActivityRegister")/${this.form.vm.Id}`;
+                    var _this = this;
+                    //若ID 没传，默认为空,为活动ID
+                    //if (_this.form.Model.Id <= 0) $("#actid").val();
+                    //获取初始化数据
+
+                    var formData = new FormData();
+                    for (var key in this.form.vm.Model) {
+                        var value = this.form.vm.Model[key];
+                        formData.append(key, value ? value:'');
+                    }
+                    hzyAdmin.post(path, formData, function (r) {
+
+                        //_this.form.vm = r.data;
+                        if (r.status == 1) {
+                            hzyAdmin.alert('绑定成功', '成功');
+                            //关闭当前窗口
+                            _this.closeWindow();
+                        }
+                    })
+
+
+                }
+            }
+        });
+    </script>
+}
+<div class="m-20 hzyAdminForm" id="app">
+    <div class="container-fluid">
+        <template>
+            <div class="login-wrapper">
+
+                <div class="title-bar">绑定</div>
+                <div class="wrapper phone-wrapper">
+
+                    <span class="title">账号</span>
+
+                    <input class="input phone" type="text" placeholder="同OA账号"
+                           v-model="form.vm.Model.AccountName">
+
+                </div>
+
+                <div class="wrapper code-wrapper">
+
+                    <span class="title">密码</span>
+
+                    <input class="input code" type="password" placeholder="密码"
+                           :value="password"
+                           v-model="form.vm.Model.AccountPwd">
+                </div>
+                <div class="wrapper btn-wrapper">
+                    <div class="input btn" @@click="login">登录</div>
+                </div>
+
+            </div>
+
+        </template>
+    </div>
+</div>
+
+

@@ -1,0 +1,259 @@
+﻿@section Styles{
+
+}
+@section Scripts{
+    <script type="text/javascript">
+        var power = JSON.parse('@Html.Raw(ViewData["power"])');
+        var isFindback = '@(ViewData["isFindback"])';
+        var app = new Vue({
+            el: "#app",
+            data: function () {
+                return {
+                    power,
+                    search: {
+                        state:false,
+                        vm: {
+                            ActName: null,
+                            ActId:null,
+                        }
+                    },
+                    table: {
+                        columns: [],
+                        data: [],
+                        page: 1,
+                        rows: 15,
+                        totalCount: 0,
+                        selecteds: []//选中的行
+                    }
+                }
+            },
+            created: function () {
+                this.findList();
+            },
+            mounted: function () {
+                console.log(this.power);
+            },
+            methods: {
+                //获取列表
+                findList: function () {
+                    var _this = this;
+                    var path = `@Url.Action("FindList")/${_this.table.page}/${_this.table.rows}`;
+
+                    hzyAdmin.post(path, _this.search.vm, function (r) {
+                        if (r.status != 1) return;
+                        _this.table.data = r.data.DataSource;
+                        _this.table.totalCount = r.data.TotalCount;
+                        _this.table.columns = r.data.Cols;
+                    });
+                },
+                //重置
+                reset: function () {
+                    for (var item in this.search.vm) this.search.vm[item] = null;
+                    this.findList();
+                },
+                //删除
+                remove: function (id) {
+                    var _this = this;
+                    var ids = [];
+                    if (id) {
+                        ids.push(id);
+                    } else {
+                        var selecteds = this.table.selecteds;
+                        if (selecteds.length == 0) return top.hzyAdmin.alert("请勾选要删除得数据!", "错误");
+                        for (var i = 0; i < selecteds.length; i++) {
+                            ids.push(selecteds[i]._ukid);
+                        }
+                    }
+                    if (confirm("确定要删除吗?")) {
+                        //请求接口删除
+                        var path = `@Url.Action("Delete")`;
+
+                        hzyAdmin.post(path, ids, function (r) {
+                            top.hzyAdmin.alert("删除成功!", "成功");
+                            _this.findList();
+                        });
+                    }
+                },
+                openForm: function (Id) {
+                    var path = `@Url.Action("ActInfo")/${(Id ? Id : '')}`;
+                    var _this = this;
+
+                    hzyAdmin.openPage(Id ? '编辑' : '新建', path, function () {
+                        _this.findList();//刷新列表
+                    }, 1200, 1000);
+
+                },
+
+
+                openForm1: function (Id) {
+                    Id = 1002;
+                    var path = `@Url.Action("ActManage")/${(Id ? Id : '')}`;
+                     var _this = this;
+                     hzyAdmin.openPage(Id ? '设计' : '设计', path, function () {
+                        _this.findList();//刷新列表
+                    }, 1200, 1000);
+
+                },
+                openFormDesign: function (Id) {
+
+                    Id = 1002;
+                     var path = `@Url.Action("ActManage")/${(Id ? Id : '')}`;
+                     var _this = this;
+                     hzyAdmin.openPage(Id ? '设计' : '设计', path, function () {
+                        _this.findList();//刷新列表
+                    }, 1200, 1000);
+                },
+                //双击表格行
+                row_dblclick: function (row, column, event) {
+                    if (isFindback == 1) {
+                        window.localStorage.setItem('findback', JSON.stringify(row));
+                        setTimeout(function () {
+                            hzyAdmin.layer.close(hzyAdmin.layer.getFrameIndex(window.name));
+                        }, 100);
+                    }
+                },
+                formatvalue: function (row, column) {
+                    var data = row[column.property]
+                    if (data != undefined) {
+                        return data=== 1 ? '是' : '否';
+                    }
+                    return '';
+
+
+                }
+            }
+        });
+    </script>
+}
+<div class="m-20" id="app">
+    <div class="container-fluid">
+        <div class="card mb-15" v-show="search.state">
+            <div class="card-body">
+                <div class="card-title">高级检索</div>
+                <div class="row">
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" v-model="search.vm.ActName" placeholder="活动ID或活动名">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-primary" @@click="findList">检索</button>&nbsp;
+                        <button type="button" class="btn btn-secondary" @@click="reset">重置</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="card m-0">
+            <div class="card-body">
+                <div class="row mb-15">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <button class="btn btn-primary" @@click="search.state=!search.state" v-if="power.Search">高级检索</button>
+                            <button class="btn btn-primary" @@click="openForm()" v-if="power.Insert">新建</button>
+
+                            <button class="btn btn-primary" @@click="openForm1()" v-if="power.Update">设计</button>
+                            <button class="btn btn-danger" @@click="remove()" v-if="power.Delete">删除</button>
+                            <button class="btn btn-primary" @@click="exportExcel()" v-if="power.GetExcel">导出Excel</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <el-table :data="table.data"
+                                      @@selection-change="(array)=>{table.selecteds=array;}"
+                                      @@row-dblclick="row_dblclick"
+                                      row-key="_ukid">
+                                <el-table-column type="index" width="50" fixed></el-table-column>
+                                <el-table-column type="selection" width="50" fixed></el-table-column>
+                                <!--根据查询接口自动加载头部信息 start-->
+                                @*<template v-for="(item,index) in table.columns" v-if="item.Show" width="140px">*@
+                                <!--处理头像-->
+                                @*<el-table-column :prop="item.DataIndex" :label="item.Title" :key="index" v-if="item.DataIndex=='Member_Photo'">
+                        <template slot-scope="scope">
+                            <img :src="scope.row.Member_Photo" class="rounded" height="50" width="50" />
+                        </template>
+                    </el-table-column>*@
+                                @*<el-table-column :prop="item.DataIndex" :label="item.Title" :key="index"></el-table-column>
+                    </template>*@
+
+
+
+                                <el-table-column prop="ActId"
+                                                 label="活动ID"
+                                                 width="100">
+                                </el-table-column>
+                                <el-table-column prop="ActName"
+                                                 label="活动名称"
+                                                 width="150">
+
+                                </el-table-column>
+                                <el-table-column prop="ActStartTime"
+                                                 label="活动开始时间"
+                                                 width="150">
+                                </el-table-column>
+                                <el-table-column prop="ActEndTime"
+                                                 label="活动结束时间"
+                                                 width="150">
+                                </el-table-column>
+
+                                <el-table-column prop="ActIsWechat"
+                                                 label="必须微信"
+                                                 :formatter="formatvalue"
+                                                 width="100">
+                                </el-table-column>
+                                <el-table-column prop="ActMustSubscribe"
+                                                 label="必须关注"
+                                                 :formatter="formatvalue"
+                                                 width="100">
+                                </el-table-column>
+                                <el-table-column prop="ActMustLogin"
+                                                 label="必须公司员工"
+                                                 :formatter="formatvalue"
+                                                 width="100">
+                                </el-table-column>
+                                <el-table-column prop="ActIsEnable"
+                                                 label="是否启用"
+                                                 :formatter="formatvalue"
+                                                 width="100">
+                                </el-table-column>
+
+                                <el-table-column prop="ModifyBy"
+                                                 label="操作人"
+                                                 width="100">
+                                </el-table-column>
+                                <el-table-column prop="ModifyTime"
+                                                 label="操作时间"
+                                                 width="150">
+                                </el-table-column>
+                                <el-table-column prop="ActMemo"
+                                                 label="备注"
+                                                 width="200">
+                                </el-table-column>
+                                <!--根据查询接口自动加载头部信息 end-->
+                                <el-table-column fixed="right" label="操作" width="200" v-if="power.Update && power.Delete">
+                                    <template slot-scope="scope">
+                                        <el-link type="primary" @@click="openForm(scope.row._ukid)" v-if="power.Update">编辑</el-link>
+                                        <el-link type="primary" @@click="openFormDesign(scope.row._ukid)" v-if="power.Update">设计</el-link>
+                                        <el-link type="danger" @@click="remove(scope.row._ukid)" v-if="power.Delete">删除</el-link>
+                                    </template>
+                                </el-table-column>
+                            </el-table>
+                            <el-pagination @@size-change="(val)=>{table.rows=val;findList();}"
+                                           @@current-change="(val)=>{table.page=val;findList();}"
+                                           :current-page="table.page"
+                                           :page-sizes="[10, 15, 20, 50, 100, 200, 300, 400, 1000]"
+                                           :page-size="table.rows"
+                                           layout="total, sizes, prev, pager, next, jumper"
+                                           :total="table.totalCount"
+                                           class="mt-10">
+                            </el-pagination>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

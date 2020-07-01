@@ -1,0 +1,183 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>HZY.Admin.xml</DocumentationFile>
+    <NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\admin\libs\elementui\node_modules\**" />
+    <Compile Remove="wwwroot\Content\Codes\Model\**" />
+    <Compile Remove="wwwroot\Content\CodeTemp\Codes\**" />
+    <Compile Remove="wwwroot\Content\CodeTemp\ZipFile\**" />
+    <Content Remove="wwwroot\admin\libs\elementui\node_modules\**" />
+    <Content Remove="wwwroot\Content\Codes\Model\**" />
+    <Content Remove="wwwroot\Content\CodeTemp\Codes\**" />
+    <Content Remove="wwwroot\Content\CodeTemp\ZipFile\**" />
+    <EmbeddedResource Remove="wwwroot\admin\libs\elementui\node_modules\**" />
+    <EmbeddedResource Remove="wwwroot\Content\Codes\Model\**" />
+    <EmbeddedResource Remove="wwwroot\Content\CodeTemp\Codes\**" />
+    <EmbeddedResource Remove="wwwroot\Content\CodeTemp\ZipFile\**" />
+    <None Remove="wwwroot\admin\libs\elementui\node_modules\**" />
+    <None Remove="wwwroot\Content\Codes\Model\**" />
+    <None Remove="wwwroot\Content\CodeTemp\Codes\**" />
+    <None Remove="wwwroot\Content\CodeTemp\ZipFile\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\admin\libs\neditor\dialogs\attachment\attachment.js" />
+    <None Include="wwwroot\admin\libs\neditor\dialogs\background\background.js" />
+    <None Include="wwwroot\admin\libs\neditor\dialogs\charts\chart.config.js" />
+    <None Include="wwwroot\admin\libs\neditor\dialogs\charts\charts.js" />
+    <None Include="wwwroot\admin\libs\neditor\dialogs\emotion\emotion.js" />
+    <None Include="wwwroot\admin\libs\neditor\dialogs\fonts\iconfont.svg" />
+    <None Include="wwwroot\admin\libs\neditor\dialogs\fonts\images\addfile.svg" />
+    <None Include="wwwroot\admin\libs\neditor\dialogs\fonts\images\selected.svg" />
+    <None Include="wwwroot\admin\libs\neditor\dialogs\help\help.js" />
+    <None Include="wwwroot\admin\libs\neditor\dialogs\image\image.js" />
+    <None Include="wwwroot\admin\libs\neditor\dialogs\internal.js" />
+    <None Include="wwwroot\admin\libs\neditor\dialogs\music\balls.svg" />
+    <None Include="wwwroot\admin\libs\neditor\dialogs\music\music.js" />
+    <None Include="wwwroot\admin\libs\neditor\dialogs\scrawl\scrawl.js" />
+    <None Include="wwwroot\admin\libs\neditor\dialogs\searchreplace\searchreplace.js" />
+    <None Include="wwwroot\admin\libs\neditor\dialogs\spechars\spechars.js" />
+    <None Include="wwwroot\admin\libs\neditor\dialogs\table\edittable.js" />
+    <None Include="wwwroot\admin\libs\neditor\dialogs\template\config.js" />
+    <None Include="wwwroot\admin\libs\neditor\dialogs\template\template.js" />
+    <None Include="wwwroot\admin\libs\neditor\dialogs\video\video.js" />
+    <None Include="wwwroot\admin\libs\neditor\dialogs\wordimage\fClipboard_ueditor.swf" />
+    <None Include="wwwroot\admin\libs\neditor\dialogs\wordimage\imageUploader.swf" />
+    <None Include="wwwroot\admin\libs\neditor\dialogs\wordimage\tangram.js" />
+    <None Include="wwwroot\admin\libs\neditor\dialogs\wordimage\wordimage.js" />
+    <None Include="wwwroot\admin\libs\neditor\i18n\en\en.js" />
+    <None Include="wwwroot\admin\libs\neditor\i18n\zh-cn\zh-cn.js" />
+    <None Include="wwwroot\admin\libs\neditor\neditor.all.js" />
+    <None Include="wwwroot\admin\libs\neditor\neditor.all.min.js" />
+    <None Include="wwwroot\admin\libs\neditor\neditor.config.js" />
+    <None Include="wwwroot\admin\libs\neditor\neditor.parse.js" />
+    <None Include="wwwroot\admin\libs\neditor\neditor.parse.min.js" />
+    <None Include="wwwroot\admin\libs\neditor\themes\notadd\fonts\iconfont.js" />
+    <None Include="wwwroot\admin\libs\neditor\themes\notadd\fonts\iconfont.svg" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\codemirror\codemirror.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\adapters\mootools-adapter.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\adapters\mootools-adapter.src.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\adapters\prototype-adapter.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\adapters\prototype-adapter.src.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\adapters\standalone-framework.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\adapters\standalone-framework.src.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\highcharts-more.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\highcharts-more.src.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\highcharts.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\highcharts.src.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\modules\annotations.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\modules\annotations.src.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\modules\canvas-tools.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\modules\canvas-tools.src.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\modules\data.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\modules\data.src.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\modules\drilldown.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\modules\drilldown.src.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\modules\exporting.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\modules\exporting.src.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\modules\funnel.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\modules\funnel.src.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\modules\heatmap.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\modules\heatmap.src.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\modules\map.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\modules\map.src.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\modules\no-data-to-display.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\modules\no-data-to-display.src.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\themes\dark-blue.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\themes\dark-green.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\themes\gray.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\themes\grid.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\highcharts\themes\skies.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\jquery-1.10.2.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\jquery-1.10.2.min.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\jquery-1.10.2.min.map" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\snapscreen\UEditorSnapscreen.exe" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\SyntaxHighlighter\shCore.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\video-js\font\vjs.svg" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\video-js\video-js.swf" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\video-js\video.dev.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\video-js\video.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\webuploader\Uploader.swf" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\webuploader\webuploader.custom.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\webuploader\webuploader.custom.min.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\webuploader\webuploader.flashonly.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\webuploader\webuploader.flashonly.min.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\webuploader\webuploader.html5only.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\webuploader\webuploader.html5only.min.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\webuploader\webuploader.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\webuploader\webuploader.min.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\webuploader\webuploader.withoutimage.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\webuploader\webuploader.withoutimage.min.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\zeroclipboard\ZeroClipboard.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\zeroclipboard\ZeroClipboard.min.js" />
+    <None Include="wwwroot\admin\libs\neditor\third-party\zeroclipboard\ZeroClipboard.swf" />
+    <None Include="wwwroot\admin\libs\qs\dist\qs.js" />
+    <None Include="wwwroot\admin\libs\qs\lib\formats.js" />
+    <None Include="wwwroot\admin\libs\qs\lib\index.js" />
+    <None Include="wwwroot\admin\libs\qs\lib\parse.js" />
+    <None Include="wwwroot\admin\libs\qs\lib\stringify.js" />
+    <None Include="wwwroot\admin\libs\qs\lib\utils.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="Dapper" Version="2.0.35" />
+    <PackageReference Include="Dapper.Contrib" Version="2.0.35" />
+    <PackageReference Include="log4net.AspNetCore" Version="1.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="3.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.3" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.9.2" />
+    <PackageReference Include="NPOI" Version="2.5.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.4.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="5.1.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.4.1" />
+    <PackageReference Include="System.DirectoryServices" Version="4.7.0" />
+    <PackageReference Include="UEditor.Core" Version="1.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HZY.DapperCore\HZY.DapperCore.csproj" />
+    <ProjectReference Include="..\HZY.Models\HZY.Models.csproj" />
+    <ProjectReference Include="..\HZY.Toolkit\HZY.Toolkit.csproj" />
+    <ProjectReference Include="..\HZY.EFCore\HZY.EFCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\admin\libs\neditor\net\upload\image\" />
+    <Folder Include="wwwroot\Content\Codes\" />
+    <Folder Include="wwwroot\Content\ZipFile\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="GYLib.Base">
+      <HintPath>..\HZY.DllRef\GYLib.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="GYWx">
+      <HintPath>..\HZY.DllRef\GYWx.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="https://gitpod.io/schemas/gitpod-schema.json" /></VisualStudio></ProjectExtensions>
+
+
+
+</Project>

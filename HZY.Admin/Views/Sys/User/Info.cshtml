@@ -1,0 +1,111 @@
+﻿@model Guid
+@section Styles{
+    <style type="text/css">
+        html, body {
+            background: #ffffff;
+        }
+    </style>
+}
+@section Scripts{
+    <script type="text/javascript">
+        var power = JSON.parse('@Html.Raw(ViewData["power"])');
+        var app = new Vue({
+            el: "#app",
+            data: function () {
+                return {
+                    power,
+                    form: {
+                        saveState: false,
+                        vm: {
+                            Id: '@Model',
+                            Model: {},
+                            RoleIds: [],
+                            AllRoleList: []
+                        }
+                    }
+                }
+            },
+            created: function () {
+                this.loadForm();
+            },
+            mounted: function () {
+
+            },
+            methods: {
+                loadForm: function () {
+                    var path = `@Url.Action("LoadForm")/${this.form.vm.Id}`;
+                    var _this = this;
+
+                    hzyAdmin.post(path, {}, function (r) {
+                        if (r.status != 1) return;
+                        _this.form.vm = r.data;
+                    });
+                },
+                closeWindow: function (delay = 0) {
+                    setTimeout(function () {
+                        hzyAdmin.layer.close(hzyAdmin.layer.getFrameIndex(window.name));
+                    }, delay);
+                },
+                save: function () {
+                    var path = `@Url.Action("Save")`;
+                    var _this = this;
+
+                    //验证
+                    if (!this.form.vm.Model.User_Name) return hzyAdmin.alert('用户名不能为空!','警告');
+
+                    this.form.saveState = true;
+                    hzyAdmin.post(path, this.form.vm, function (r) {
+                        _this.form.saveState = false;
+                        if (r.status == 1) {
+                            hzyAdmin.alert('保存成功', '成功');
+                            //关闭当前窗口
+                            _this.closeWindow();
+                        }
+                    });
+                }
+            }
+        });
+    </script>
+}
+<div class="m-20 hzyAdminForm" id="app">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h4 class="example-title">用户名称</h4>
+                <input type="text" class="form-control" placeholder="请输入 用户名称" v-model="form.vm.Model.User_Name" autocomplete="off" />
+            </div>
+            <div class="col-sm-6">
+                <h4 class="example-title">登录名称</h4>
+                <input type="text" class="form-control" placeholder="请输入 登录名称" v-model="form.vm.Model.User_LoginName" autocomplete="off" />
+            </div>
+            <div class="col-sm-6">
+                <h4 class="example-title">密码</h4>
+                <input type="password" class="form-control" placeholder="请输入 密码" v-model="form.vm.Model.User_Pwd" autocomplete="off" />
+            </div>
+            <div class="col-sm-6">
+                <h4 class="example-title">邮件</h4>
+                <input type="email" class="form-control" placeholder="请输入 邮件" v-model="form.vm.Model.User_Email" autocomplete="off" />
+            </div>
+            <div class='col-sm-12'>
+                <h4 class='example-title'>角色</h4>
+                <div class="row">
+                    <div class="col-sm-3" v-for="(item,index) in form.vm.AllRoleList" :key="index">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" :id="item.Role_ID" :value="item.Role_ID" v-model="form.vm.RoleIds">
+                            <label class="custom-control-label" :for="item.Role_ID">{{item.Role_Name}}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hzyAdminForm-footer">
+            <div class="row">
+                <div class="col-sm-6"></div>
+                <div class="col-sm-6 text-right">
+                    <button class="btn btn-primary" @@click="save" v-bind:disabled="form.saveState" v-if="power.Save">保存</button>
+                    <button class="btn btn-danger" @@click="closeWindow()">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

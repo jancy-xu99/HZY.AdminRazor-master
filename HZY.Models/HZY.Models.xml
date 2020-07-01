@@ -1,0 +1,687 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HZY.Models</name>
+    </assembly>
+    <members>
+        <member name="P:HZY.Models.Act.ActivityModel.ActId">
+            <summary>
+            活动Id
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Act.ActivityModel.ActName">
+            <summary>
+            活动名称
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Act.ActivityModel.ActStartTime">
+            <summary>
+            活动开始时间
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Act.ActivityModel.ActEndTime">
+            <summary>
+            活动结束时间
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Act.ActivityModel.ActIsWechat">
+            <summary>
+            微信活动
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Act.ActivityModel.ActMustSubscribe">
+            <summary>
+            必须关注微信
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Act.ActivityModel.ActMustLogin">
+            <summary>
+            必须登陆
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Act.ActivityModel.ActIsEnable">
+            <summary>
+            是否有效
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Act.ActivityModel.ActMemo">
+            <summary>
+            活动备注
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Act.Fct_Activity.ActId">
+            <summary>
+            活动ID
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Act.Fct_Activity.ActGuId">
+            <summary>
+            活动GUID
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Act.Fct_Activity.ActName">
+            <summary>
+            活动名称
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Act.Fct_Activity.ActStartTime">
+            <summary>
+            活动开始时间
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Act.Fct_Activity.ActEndTime">
+            <summary>
+            活动结束时间
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Act.Fct_Activity.ActIsWechat">
+            <summary>
+            微信活动
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Act.Fct_Activity.ActMustSubscribe">
+            <summary>
+            必须关注微信
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Act.Fct_Activity.Design_Introduce">
+            <summary>
+            富文本框设计的内容
+            
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Act.Fct_Activity.ActMustLogin">
+            <summary>
+            必须登陆
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Act.Fct_Activity.ActIsEnable">
+            <summary>
+            是否有效
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Act.Fct_Activity.ActMemo">
+            <summary>
+            活动备注
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Act.Fct_Activity.Disabled">
+            <summary>
+            删除
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Act.Fct_Activity.CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Act.Fct_Activity.CreateBy">
+            <summary>
+            创建人
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Act.Fct_Activity.ModifyTime">
+            <summary>
+            操作时间
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Act.Fct_Activity.ModifyBy">
+            <summary>
+            操作人
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Act.SubscribeMsgModel.SendMsg">
+            <summary>
+            引导标题
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Act.SubscribeMsgModel.LinkName">
+            <summary>
+            图文推送信息图片路径
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Act.SubscribeMsgModel.LinkUrl">
+            <summary>
+            图文推送跳转页面Url
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Common.PagerModel.PageIndex">
+            <summary>
+            获取或设置当前页
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Common.PagerModel.PageSize">
+            <summary>
+            获取或设置每页记录数
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Common.PagerModel.RecordCount">
+            <summary>
+            获取或设置记录总数
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Common.PagerModel.SortField">
+            <summary>
+            设置或获取排序字段
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Common.PagerModel.IsFirstPage">
+            <summary>
+            是否返回第一页(查找)
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Common.PagerModel.RefreshUrl">
+            <summary>
+            要刷新的URL
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Common.PagerModel.DivId">
+            <summary>
+            刷新div的ID
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Common.PagerModel.FormSubmitId">
+            <summary>
+            from表单ID
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Common.PagerModel.ParameterName">
+            <summary>
+            刷新参数
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Common.PagerModel.ParameterValue">
+            <summary>
+            刷新参数值
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Common.PagerModel.FormIsSingle">
+            <summary>
+            当前页面是否只有一个表单
+            </summary>
+        </member>
+        <member name="F:HZY.Models.Common.PagerModel._SortDirection">
+            <summary>
+            正序倒序
+            </summary>
+        </member>
+        <member name="F:HZY.Models.Common.PagerModel._SortField">
+            <summary>
+            排序字段 
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Common.PagerModel.SortDirection">
+            <summary>
+            设置或获取排序方式
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Common.PagerModel.PageCount">
+            <summary>
+            获取页数
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Common.PagerModel`1.Data">
+            <summary>
+            获取或设置数据
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Common.Response.Code">
+            <summary>
+            返回码
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Common.Response.Message">
+            <summary>
+            消息
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Common.TransModel.SQL">
+            <summary>
+            SQL
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Common.TransModel.LisTModel">
+            <summary>
+            清单
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Member.Member_ID">
+            <summary>
+            会员ID
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Member.Member_Num">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Member.Member_Name">
+            <summary>
+            会员名称
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Member.Member_Phone">
+            <summary>
+            电话
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Member.Member_Sex">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Member.Member_Birthday">
+            <summary>
+            生日
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Member.Member_Photo">
+            <summary>
+            头像
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Member.Member_UserID">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Member.Member_Introduce">
+            <summary>
+            简介
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Member.Member_FilePath">
+            <summary>
+            文件地址
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Member.Member_CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Member.Member_CreateBy">
+            <summary>
+            创建人
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Member.Member_ModifyTime">
+            <summary>
+            修改时间
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Member.Member_ModifyBy">
+            <summary>
+            修改人
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Mem.Fct_Member.UserId">
+            <summary>
+            会员ID
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Mem.Fct_Member.UserGuId">
+            <summary>
+            会员GUID
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Mem.Fct_Member.UserAccount">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Mem.Fct_Member.UserPassword">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Mem.Fct_Member.UserLinkName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Mem.Fct_Member.UserName">
+            <summary>
+            真实姓名
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Mem.Fct_Member.UserSex">
+            <summary>
+            用户性别
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Mem.Fct_Member.UserWxImageUrl">
+            <summary>
+            微信图像
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Mem.Fct_Member.UserWxOpenId">
+            <summary>
+            微信OPENID
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Mem.Fct_Member.UserWxIsSubScribe">
+            <summary>
+            用户是否关注微信
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Mem.Fct_Member.UserEmail">
+            <summary>
+            用户邮箱
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Mem.Fct_Member.UserMobile">
+            <summary>
+            用户手机号
+            </summary>
+            [Required(ErrorMessage = "电话不能为空!")]
+        </member>
+        <member name="P:HZY.Models.Mem.Fct_Member.UserIntroduce">
+            <summary>
+            简介
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Mem.Fct_Member.Disabled">
+            <summary>
+            是否删除
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Mem.Fct_Member.CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Mem.Fct_Member.CreateBy">
+            <summary>
+            创建人
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Mem.Fct_Member.ModifyTime">
+            <summary>
+            修改时间
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Mem.Fct_Member.ModifyBy">
+            <summary>
+            修改人
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Mem.Fct_MemSubscribe.Id">
+            <summary>
+            关注ID
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Mem.Fct_MemSubscribe.SubscibeGuId">
+            <summary>
+            关注GUID
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Mem.Fct_MemSubscribe.WxOpenId">
+            <summary>
+            微信OPENID
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Mem.Fct_MemSubscribe.QrScene">
+            <summary>
+            通过哪个二维码
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Mem.Fct_MemSubscribe.ActId">
+            <summary>
+            活动ID
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Mem.Fct_MemSubscribe.Disabled">
+            <summary>
+            是否删除
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Mem.Fct_MemSubscribe.CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Mem.Fct_MemSubscribe.CreateBy">
+            <summary>
+            创建人
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Mem.Fct_MemSubscribe.ModifyTime">
+            <summary>
+            修改时间
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Mem.Fct_MemSubscribe.ModifyBy">
+            <summary>
+            修改人
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.AccountInfo.UserName">
+            <summary>
+            用户名称
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.AccountInfo.RoleIDList">
+            <summary>
+            角色ID
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.AccountInfo.UserID">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.AccountInfo.IsSuperManage">
+            <summary>
+            当前登录人 是否是 超级管理员
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.AccountInfo._Sys_User">
+            <summary>
+            Sys_User
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_AppLog.AppLog_Api">
+            <summary>
+            Api
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_AppLog.AppLog_IP">
+            <summary>
+            Ip
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_AppLog.AppLog_UserID">
+            <summary>
+            UserID
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_AppLog.AppLog_Form">
+            <summary>
+            表单信息
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_AppLog.AppLog_FormBody">
+            <summary>
+            body 信息
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_AppLog.AppLog_QueryString">
+            <summary>
+            地址栏信息
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_AppLog.AppLog_CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_Function.Function_Num">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_Function.Function_Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_Function.Function_ByName">
+            <summary>
+            英文名称
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_Function.Function_CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_Menu.Menu_Num">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_Menu.Menu_Name">
+            <summary>
+            菜单名称
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_Menu.Menu_Url">
+            <summary>
+            菜单地址
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_Menu.Menu_Icon">
+            <summary>
+            菜单图标
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_Menu.Menu_ParentID">
+            <summary>
+            上级菜单
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_Menu.Menu_IsShow">
+            <summary>
+            是否显示 =>1 是 2 否
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_Menu.Menu_IsClose">
+            <summary>
+            是否关闭 => 1=是 0=否 关闭选项卡
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_Menu.Menu_CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_MenuFunction.MenuFunction_MenuID">
+            <summary>
+            菜单ID
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_MenuFunction.MenuFunction_FunctionID">
+            <summary>
+            功能ID
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_MenuFunction.MenuFunction_CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_Role.Role_Num">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_Role.Role_Name">
+            <summary>
+            角色名称
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_Role.Role_Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_Role.Role_IsDelete">
+            <summary>
+            是否可以删除=>1 是 2 否
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_Role.Role_CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_RoleMenuFunction.RoleMenuFunction_RoleID">
+            <summary>
+            角色ID
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_RoleMenuFunction.RoleMenuFunction_FunctionID">
+            <summary>
+            功能ID
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_RoleMenuFunction.RoleMenuFunction_MenuID">
+            <summary>
+            菜单ID
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_RoleMenuFunction.RoleMenuFunction_CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_User.User_Name">
+            <summary>
+            用户名称
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_User.User_LoginName">
+            <summary>
+            登录名称
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_User.User_Pwd">
+            <summary>
+            登录密码
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_User.User_Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_User.User_IsDelete">
+            <summary>
+            是否删除 => 1 是 2 否
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_User.User_CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_UserRole.UserRole_UserID">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_UserRole.UserRole_RoleID">
+            <summary>
+            角色ID
+            </summary>
+        </member>
+        <member name="P:HZY.Models.Sys.Sys_UserRole.UserRole_CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+    </members>
+</doc>

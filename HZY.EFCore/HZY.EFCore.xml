@@ -1,0 +1,266 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HZY.EFCore</name>
+    </assembly>
+    <members>
+        <member name="P:HZY.EFCore.Base.TableViewModel.Cols">
+            <summary>
+            列信息
+            </summary>
+        </member>
+        <member name="P:HZY.EFCore.Base.TableViewModel.DataSource">
+            <summary>
+            转换后数据
+            </summary>
+        </member>
+        <member name="P:HZY.EFCore.Base.TableViewModel.TotalCount">
+            <summary>
+            总数
+            </summary>
+        </member>
+        <member name="P:HZY.EFCore.Base.TableViewModel.TotalPage">
+            <summary>
+            总页数
+            </summary>
+        </member>
+        <member name="P:HZY.EFCore.Base.TableViewModel.Rows">
+            <summary>
+            一页显示多少条
+            </summary>
+        </member>
+        <member name="P:HZY.EFCore.Base.TableViewModel.Page">
+            <summary>
+            页码
+            </summary>
+        </member>
+        <member name="T:HZY.EFCore.Base.TableViewCol">
+            <summary>
+            列头信息
+            </summary>
+        </member>
+        <member name="P:HZY.EFCore.Base.TableViewCol.DataIndex">
+            <summary>
+            列名
+            </summary>
+        </member>
+        <member name="P:HZY.EFCore.Base.TableViewCol.Title">
+            <summary>
+            标题名称
+            </summary>
+        </member>
+        <member name="P:HZY.EFCore.Base.TableViewCol.Show">
+            <summary>
+            是否显示
+            </summary>
+        </member>
+        <member name="P:HZY.EFCore.TABLES_COLUMNS.TabName">
+            <summary>
+            表名称
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:HZY.EFCore.TABLES_COLUMNS.TabNameRemark">
+            <summary>
+            表备注
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:HZY.EFCore.TABLES_COLUMNS.ColOrder">
+            <summary>
+            列序号
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:HZY.EFCore.TABLES_COLUMNS.ColName">
+            <summary>
+            列名
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:HZY.EFCore.TABLES_COLUMNS.ColIsIdentity">
+            <summary>
+            是否自增 1 是 0 否
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:HZY.EFCore.TABLES_COLUMNS.ColIsKey">
+            <summary>
+            是否主键 1 是 0 否
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:HZY.EFCore.TABLES_COLUMNS.ColType">
+            <summary>
+            类型
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:HZY.EFCore.TABLES_COLUMNS.ColLength">
+            <summary>
+            暂用字节数
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:HZY.EFCore.TABLES_COLUMNS.ColMaxLength">
+            <summary>
+            允许占用最大字长度
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:HZY.EFCore.TABLES_COLUMNS.ColScale">
+            <summary>
+            小数位数
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:HZY.EFCore.TABLES_COLUMNS.ColIsNull">
+            <summary>
+            列能否为 Null
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:HZY.EFCore.TABLES_COLUMNS.ColDefaultValue">
+            <summary>
+            列默认值
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:HZY.EFCore.TABLES_COLUMNS.ColRemark">
+            <summary>
+            列备注
+            </summary>
+            <value></value>
+        </member>
+        <member name="M:HZY.EFCore.EFCoreContext.GetColsByTableNameAsync(System.String)">
+            <summary>
+            根据表名称 获取列
+            </summary>
+            <param name="TableName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.EFCore.EFCoreContext.GetAllTableAsync">
+            <summary>
+            获取所有的表名称
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.EFCore.Repository.HZYEFCoreExtensions.GetPropertyInfos(System.Type,System.Reflection.BindingFlags)">
+            <summary>
+            获取 PropertyInfo 集合
+            </summary>
+            <param name="_type"></param>
+            <param name="_bindingFlags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.EFCore.Repository.HZYEFCoreExtensions.CreateInstance``1">
+            <summary>
+            创建 对象实例
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.EFCore.Repository.HZYEFCoreExtensions.GetAttribute``1(System.Type,System.String)">
+            <summary>
+            获取 对象 中 某个属性得 标记
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="_type"></param>
+            <param name="_name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.EFCore.Repository.HZYEFCoreExtensions.GetPropertyInfo(System.Type,System.String)">
+            <summary>
+            获取 PropertyInfo 对象
+            </summary>
+            <param name="_type"></param>
+            <param name="_name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.EFCore.Repository.HZYEFCoreExtensions.GetKeyProperty(System.Type)">
+            <summary>
+            获取 模型 有 Key 特性得 属性对象
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.EFCore.Repository.HZYEFCoreExtensions.HasKey(System.Reflection.PropertyInfo)">
+            <summary>
+            是否有 KeyAttribute 标记
+            </summary>
+            <param name="propertyInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.EFCore.Repository.HZYEFCoreExtensions.ToWhere``1(System.String,System.Object,System.String)">
+            <summary>
+            根据实体对象 创建 Expression{Func{T, bool}} 表达式树 例如： Lambda => | ( w=>w.Key==Guid.Empty )
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="PropertyName"></param>
+            <param name="PropertyValue"></param>
+            <param name="ExpName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.EFCore.Repository.HZYEFCoreExtensions.ToMemberInitByModel``1(``0,System.String)">
+            <summary>
+            获取 Expression {Func{T, T}} 树结构 Lambda => | w => new User{ Name="hzy" }
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.EFCore.Repository.HZYEFCoreExtensions.ToNewByNull``1(``0)">
+            <summary>
+            将 Null 对象转换为 对象的实例
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HZY.EFCore.Repository.HZYRepositoryBase`2">
+            <summary>
+            基础仓储
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TDbContext"></typeparam>
+        </member>
+        <member name="M:HZY.EFCore.Repository.HZYRepositoryBase`2.BatchUpdate(System.Linq.Expressions.Expression{System.Func{`0,`0}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            批量更新 如果使用事务 请使用 db.BeginTransaction() 不能使用 db.Commit()
+            </summary>
+            <param name="updateExpression"></param>
+            <param name="predicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.EFCore.Repository.HZYRepositoryBase`2.BatchUpdate(`0,System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            批量更新 [更新全字段] 如果使用事务 请使用 db.BeginTransaction() 不能使用 db.Commit()
+            </summary>
+            <param name="updateExpression"></param>
+            <param name="predicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.EFCore.Repository.HZYRepositoryBase`2.BatchUpdateAsync(System.Linq.Expressions.Expression{System.Func{`0,`0}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            批量更新 异步 如果使用事务 请使用 db.BeginTransactionAsync() 不能使用 db.CommitAsync()
+            </summary>
+            <param name="updateExpression"></param>
+            <param name="predicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.EFCore.Repository.HZYRepositoryBase`2.BatchUpdateAsync(`0,System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            批量更新 [更新全字段] 异步 如果使用事务 请使用 db.BeginTransactionAsync() 不能使用 db.CommitAsync()
+            </summary>
+            <param name="updateExpression"></param>
+            <param name="predicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HZY.EFCore.Repository.HZYRepositoryBase`2.Query(System.Boolean)">
+            <summary>
+            查询
+            </summary>
+            <param name="IsTracking">是否追踪</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

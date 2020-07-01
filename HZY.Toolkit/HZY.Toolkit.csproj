@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.9.2" />
+    <PackageReference Include="SharpZipLib" Version="1.2.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.5.1" />
+    <PackageReference Include="System.Text.Json" Version="4.7.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="GYLib.Base">
+      <HintPath>..\HZY.DllRef\GYLib.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="GYNotice.DataAccess">
+      <HintPath>..\HZY.DllRef\GYNotice.DataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http">
+      <HintPath>..\HZY.DllRef\Microsoft.AspNetCore.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="StackExchange.Redis">
+      <HintPath>..\HZY.DllRef\StackExchange.Redis.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

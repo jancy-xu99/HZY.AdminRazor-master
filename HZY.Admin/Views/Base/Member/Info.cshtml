@@ -1,0 +1,225 @@
+﻿@model Guid
+@section Styles{
+    <style type="text/css">
+
+        html, body {
+            background: #ffffff;
+        }
+    </style>
+}
+@section Scripts{
+    <!-- 配置文件 -->
+    <script src="~/admin/libs/neditor/neditor.config.js"></script>
+    <!-- 编辑器源码文件 -->
+    <script src="~/admin/libs/neditor/neditor.all.min.js"></script>
+    <script src="~/admin/libs/neditor/i18n/zh-cn/zh-cn.js"></script>
+    <script type="text/javascript">
+        var power = JSON.parse('@Html.Raw(ViewData["power"])');
+        var app = new Vue({
+            el: "#app",
+            data: function () {
+                return {
+                    power,
+                    form: {
+                        saveState: false,
+                        vm: {
+                            Id: '@Model',
+                            Model: {},
+                            User: {}
+                        },
+                        Photo: null,
+                        Files: [],
+                        FilesName: [],
+                        editor: {}
+                    }
+                }
+            },
+            created: function () {
+                this.loadForm();
+            },
+            mounted: function () {
+                var _this = this;
+                //编辑器 配置
+                this.form.editor = UE.getEditor('Member_Introduce');
+                this.form.editor.addListener('blur', function (e) {
+                    _this.form.vm.Model.Member_Introduce = _this.form.editor.getContent();
+                });
+            },
+            methods: {
+                loadForm: function () {
+                    var path = `@Url.Action("LoadForm")/${this.form.vm.Id}`;
+                    var _this = this;
+
+                    hzyAdmin.post(path, {}, function (r) {
+                        if (r.status != 1) return;
+                        _this.form.vm = r.data;
+                        //处理文件
+                        if (_this.form.vm.Model.Member_FilePath) _this.form.FilesName = _this.form.vm.Model.Member_FilePath.split(',');
+                        //处理编辑器值
+                        setTimeout(function () {
+                            _this.form.editor.setContent(_this.form.vm.Model.Member_Introduce ? _this.form.vm.Model.Member_Introduce.replace(/'/g, '\'') : "");
+                        }, 200);
+                    });
+                },
+                closeWindow: function (delay = 0) {
+                    setTimeout(function () {
+                        hzyAdmin.layer.close(hzyAdmin.layer.getFrameIndex(window.name));
+                    }, delay);
+                },
+                save: function () {
+                    var path = `@Url.Action("Save")`;
+                    var _this = this;
+
+                    //验证
+                    if (!this.form.vm.Model.Member_Name)  return hzyAdmin.alert('会员名称不能为空!', '警告');
+
+                    //组装数据
+                    var formData = new FormData();
+                    for (var key in this.form.vm.Model) {
+                        var value = this.form.vm.Model[key];
+                        formData.append(key, value ? value : '');
+                    }
+
+                    if (this.form.Photo) formData.append('Photo', this.form.Photo);
+
+                    for (var i = 0; i < this.form.Files.length; i++) {
+                        var item = this.form.Files[i];
+                        formData.append('Files[' + i + ']', item);
+                    }
+
+                    this.form.saveState = true;
+                    hzyAdmin.upload(path, formData, function (r) {
+                        _this.form.saveState = false;
+                        if (r.status == 1) {
+                            hzyAdmin.alert('保存成功', '成功');
+                            //关闭当前窗口
+                            _this.closeWindow();
+                        }
+                    });
+                },
+                photoChange: function (e) {
+                    var files = e.target.files;
+                    if (files.length > 0) {
+                        this.form.vm.Model.Member_Photo = hzyAdmin.getObjectUrl(files[0]);//显示
+                        this.form.Photo = files[0];
+                    }
+                },
+                fielsChange: function (e) {
+                    var files = e.target.files;
+                    if (files.length > 0) {
+                        //for (var i = 0; i < files.length; i++) {
+                        //    var item = files[i];
+                        //    this.form.FielsName.push(item.filename);
+                        //}
+                        this.form.Files = files;
+                    }
+                },
+                //查找带回
+                findBack_User: function (isRemove) {
+                    if (isRemove) {
+                        //清空信息
+                        this.form.vm.Model.Member_UserID = '';
+                        this.form.vm.User.User_Name = '';
+                        return;
+                    }
+                    //打开页面查找带回信息
+                    var path = `@Url.Action("Index","User")/?findback=1`;
+                    var _this = this;
+
+                    hzyAdmin.openPage('请选择用户', path, function () {
+                        var row = JSON.parse(window.localStorage.getItem('findback'));
+                        console.log('查找带回 行数据',row);
+                        _this.form.vm.Model.Member_UserID = row._ukid;
+                        _this.form.vm.User.User_Name = row.User_Name;
+
+                    }, 1200, 1000);
+                }
+
+            }
+        });
+    </script>
+}
+<div class="m-20 hzyAdminForm" id="app">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-4">
+                <h4 class="example-title">编号</h4>
+                <input type="text" class="form-control" placeholder="请输入 编号" v-model="form.vm.Model.Member_Num" autocomplete="off" />
+            </div>
+            <div class="col-sm-4">
+                <h4 class="example-title">会员名称</h4>
+                <input type="text" class="form-control" placeholder="请输入 会员名称" v-model="form.vm.Model.Member_Name" autocomplete="off" />
+            </div>
+            <div class="col-sm-4">
+                <h4 class="example-title">联系电话</h4>
+                <input type="text" class="form-control" placeholder="请输入 联系电话" v-model="form.vm.Model.Member_Phone" autocomplete="off" />
+            </div>
+            <div class="col-sm-4">
+                <h4 class="example-title">生日</h4>
+                <el-date-picker type="date" placeholder="请选择 生日" v-model="form.vm.Model.Member_Birthday" format="yyyy-MM-dd" style="width:100%"></el-date-picker>
+            </div>
+            <div class="col-sm-4">
+                <h4 class="example-title">性别</h4>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="Member_Sex1" name="Member_Sex" class="custom-control-input" v-model="form.vm.Model.Member_Sex" value="男">
+                            <label class="custom-control-label" for="Member_Sex1">男</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="Member_Sex2" name="Member_Sex" class="custom-control-input" v-model="form.vm.Model.Member_Sex" value="女">
+                            <label class="custom-control-label" for="Member_Sex2">女</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <h4 class="example-title">用户</h4>
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" class="form-control" readonly="readonly" v-model="form.vm.User.User_Name">
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-default btn-outline" @@click="findBack_User()"><i class="fas fa-search"></i></button>
+                            <button type="button" class="btn btn-default btn-outline" @@click="findBack_User(1)"><i class="fas fa-trash-alt text-danger"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h4 class="example-title">头像</h4>
+                        <input type="file" @@change="photoChange" />
+                        <br />
+                        <img width="150" class="rounded" :src="form.vm.Model.Member_Photo" v-show="form.vm.Model.Member_Photo" />
+                    </div>
+                    <div class="col-sm-6">
+                        <h4 class="example-title">文件</h4>
+                        <input type="file" @@change="fielsChange" multiple="multiple" />
+                        <ul class="list-group">
+                            <li class="list-group-item" v-for="(item,index) in form.FilesName" :key="index"><a :href="item" target="_blank">{{item}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <h4 class="example-title">简介</h4>
+                <script id="Member_Introduce" name="Member_Introduce" style="width:100%;height:300px" type="text/plain">
+                </script>
+            </div>
+
+        </div>
+        <div class="hzyAdminForm-footer">
+            <div class="row">
+                <div class="col-sm-6"></div>
+                <div class="col-sm-6 text-right">
+                    <button class="btn btn-primary" @@click="save" v-bind:disabled="form.saveState" v-if="power.Save">保存</button>
+                    <button class="btn btn-danger" @@click="closeWindow()">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,71 @@
+﻿@{
+    var menuList = ViewData["menuList"] as List<Dictionary<string, object>>;
+
+}
+@functions{
+
+    void CreateMenu(List<Dictionary<string, object>> menus, List<Dictionary<string, object>> menuAll)
+    {
+        //
+        foreach (var item in menus)
+        {
+            var id = item["id"];
+            var title = item["name"];
+            var href = item["path"];
+            var icon = item["icon"];
+            var isClose = item["isClose"];
+            var children = item["children"] as List<Dictionary<string, object>>;
+            var isFirst = menuAll.IndexOf(item) == 0;
+            if (children.Count > 0)
+            {
+                <li class="@(isFirst ? "mm-active" : "")">
+                    <a class="has-arrow" href='javascript:;' aria-expanded="@(isFirst ? "true" : "false")">
+                        <i class="@icon"></i><span>@title</span>
+                    </a>
+                    <ul class="mm-collapse @(isFirst ? "mm-show" : "")">
+                        @foreach (var _children in children)
+                        {
+                            id = _children["id"];
+                            title = _children["name"];
+                            href = _children["path"];
+                            icon = _children["icon"];
+                            isClose = _children["isClose"];
+                            children = _children["children"] as List<Dictionary<string, object>>;
+
+                            @if (children.Count > 0)
+                            {
+                                var menu = new List<Dictionary<string, object>>();
+                                menu.Add(_children);
+                                CreateMenu(menu, menuAll);
+                            }
+                            else
+                            {
+                                <li hzy-id="@id" hzy-title="@title" hzy-href="@href" hzy-isClose="@(isClose.ToInt32()==1?"true":"false")">
+                                    <a href="javascript:;">
+                                        <i class="@icon"></i><span>@title</span>
+                                    </a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </li>
+            }
+            else
+            {
+                <li hzy-id="@id" hzy-title="@title" hzy-href="@href" hzy-isClose="@(isClose.ToInt32()==1?"true":"false")">
+                    <a href="javascript:;">
+                        <i class="@icon"></i><span>@title</span>
+                    </a>
+                </li>
+            }
+        }
+    }
+
+}
+
+<!--menu 菜单-->
+<nav class="hzy-menu sidebar-nav sidebar-nav-max">
+    <ul class="metismenu" id="hzyAdminMenu">
+        @{CreateMenu(menuList,menuList);}
+    </ul>
+</nav>

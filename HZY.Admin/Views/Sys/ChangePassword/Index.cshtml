@@ -1,0 +1,69 @@
+﻿@section Styles{
+
+}
+@section Scripts{
+    <script type="text/javascript">
+        var app = new Vue({
+            el: "#app",
+            data: function () {
+                return {
+                    grid: 24,
+                    OldPwd: null,
+                    NewPwd: null,
+                    QrPwd: null
+                }
+            },
+            created: function () {
+
+            },
+            mounted: function () {
+
+            },
+            methods: {
+                save: function () {
+                    var path = `@Url.Action("Save")`;
+                    var _this = this;
+
+                    hzyAdmin.post(path, {
+                        OldPwd: this.OldPwd,
+                        NewPwd: this.NewPwd,
+                        QrPwd: this.QrPwd
+                    }, function (r) {
+                            if (r.status != 1) return;
+                            hzyAdmin.alert('变更成功!即将退出重新登录', '成功');
+                            setTimeout(function () {
+                                top.window.location = '/Authorization/Out';
+                            }, 500);
+                    });
+                }
+            }
+        });
+    </script>
+}
+<div class="m-20" id="app">
+    <div class="container-fluid">
+        <el-row :gutter="20">
+            <el-col :offset="8" :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
+                <el-card class="box-card">
+                    <el-row :gutter="20">
+                        <el-col :xs="24" :sm="24" :md="grid" :lg="grid" :xl="grid">
+                            <h5>旧密码</h5>
+                            <el-input v-model="OldPwd" type="password"></el-input>
+                        </el-col>
+                        <el-col :xs="24" :sm="24" :md="grid" :lg="grid" :xl="grid">
+                            <h5>新密码</h5>
+                            <el-input v-model="NewPwd" type="password"></el-input>
+                        </el-col>
+                        <el-col :xs="24" :sm="24" :md="grid" :lg="grid" :xl="grid">
+                            <h5>确认密码</h5>
+                            <el-input v-model="QrPwd" type="password"></el-input>
+                        </el-col>
+                        <el-col :xs="24" :sm="24" :md="grid" :lg="grid" :xl="grid" class="mt-30 mb-30">
+                            <el-button type="primary" style="width:100%" @@click="save">保存</el-button>
+                        </el-col>
+                    </el-row>
+                </el-card>
+            </el-col>
+        </el-row>
+    </div>
+</div>

@@ -1,0 +1,68 @@
+﻿.cct {
+    display: flex;
+    background: #344a5f;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    color: #ffffff;
+}
+
+    .cct ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+        .cct ul li {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+            .cct ul li:hover {
+                background: #4e6e8e;
+            }
+
+.cct-tables {
+    flex: .13;
+    background: #1d2935;
+    overflow: auto;
+}
+
+
+.cct-fields {
+    flex: .3;
+    background: #2c3e50;
+    overflow: auto;
+}
+
+.cct-tools {
+    flex: .12;
+    background: #1d2935;
+    overflow: hidden;
+}
+
+.cct-codes {
+    flex: .45;
+    background: #2c3e50;
+    overflow: hidden;
+}
+
+    .cct-codes textarea {
+        width: 100%;
+        height: 100vh;
+        background: #2c3e50;
+        border: 0;
+        color: #F56C6C;
+        font-weight: 500;
+        border-radius: 0;
+        padding: 10px;
+    }
+
+.cctActive {
+    background: #4e6e8e;
+}
+
+.download,
+.downloadAll {
+    cursor: pointer;
+}

@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="GYLib.Base">
+      <HintPath>..\HZY.DllRef\GYLib.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="GYWx">
+      <HintPath>..\HZY.DllRef\GYWx.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

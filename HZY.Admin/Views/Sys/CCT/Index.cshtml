@@ -1,0 +1,186 @@
+﻿@section Styles{
+    <link href="~/admin/css/hzyCCT.css" rel="stylesheet" />
+}
+@section Scripts{
+    <script type="text/javascript">
+        var app = new Vue({
+            el: "#app",
+            data: function () {
+                return {
+                    tablesAndFields: {},
+                    tables: [],
+                    selectedTable: '',
+                    fields: [],
+                    selectedTab: 1,
+                    code: '请选择表和要生成的代码',
+                    codeType:'',
+                }
+            },
+            created: function () {
+                this.getTableNameAndFields();
+            },
+            mounted: function () {
+
+            },
+            methods: {
+                //获取表及字段
+                getTableNameAndFields: function () {
+                    var _this = this;
+                    var path = `@Url.Action("GetTableNameAndFields")`;
+
+                    hzyAdmin.post(path, {}, function (r) {
+                        _this.tablesAndFields = r.data;
+                        for (var item in _this.tablesAndFields) {
+                            _this.tables.push(item);
+                        }
+                        _this.onSelectedTable(_this.tables[0]);
+                    });
+                },
+                onSelectedTable: function (table) {
+                    this.selectedTable = table;
+                    this.fields = this.tablesAndFields[this.selectedTable];
+                    this.onSelectedTab(this.selectedTab);
+                },
+                onSelectedTab: function (tab) {
+                    this.selectedTab = tab;
+                    if (tab == 1) {
+                        this.getModelCode();
+                    }
+                    if (tab == 2) {
+                        this.getDbSetCode();
+                    }
+                    if (tab == 3) {
+                        this.getServicesCode();
+                    }
+                    if (tab == 4) {
+                        this.getServicesRegister();
+                    }
+                    if (tab == 5) {
+                        this.getControllersCode();
+                    }
+                    if (tab == 6) {
+                        this.getIndexCode();
+                    }
+                    if (tab == 7) {
+                        this.getInfoCode();
+                    }
+                    this.getCodeType();
+                },
+                getCodeType: function () {
+                    if (this.selectedTab == 1) this.codeType = "Model";
+                    if (this.selectedTab == 2) this.codeType = "";
+                    if (this.selectedTab == 3) this.codeType = "Service";
+                    if (this.selectedTab == 4) this.codeType = "";
+                    if (this.selectedTab == 5) this.codeType = "Controller";
+                    if (this.selectedTab == 6) this.codeType = "Index";
+                    if (this.selectedTab == 7) this.codeType = "Info";
+                },
+                //获取代码
+                getCode: function (path, data = {}) {
+                    var _this = this;
+                    hzyAdmin.post(path, data, function (r) {
+                        console.log('getCode', r);
+                        _this.code = r.data;
+                    });
+                },
+                //获取 model
+                getModelCode: function () {
+                    var path = `@Url.Action("GetModelCode")/${this.selectedTable}`;
+                    this.getCode(path);
+                },
+                //获取 efcore 使用的 dbset
+                getDbSetCode: function () {
+                    var path = `@Url.Action("GetDbSetCode")`;
+                    this.getCode(path);
+                },
+                //获取 service 服务代码
+                getServicesCode: function () {
+                    var path = `@Url.Action("GetServicesCode")/${this.selectedTable}`;
+                    this.getCode(path);
+                },
+                //获取 服务 注入代码
+                getServicesRegister: function () {
+                    var path = `@Url.Action("GetServicesRegister")`;
+                    this.getCode(path);
+                },
+                //获取 控制器 代码
+                getControllersCode: function () {
+                    var path = `@Url.Action("GetControllersCode")/${this.selectedTable}`;
+                    this.getCode(path);
+                },
+                //获取 Index.cshtml 代码
+                getIndexCode: function () {
+                    var path = `@Url.Action("GetIndexCode")/${this.selectedTable}`;
+                    this.getCode(path);
+                },
+                //获取 Info.cshtml 代码
+                getInfoCode: function () {
+                    var path = `@Url.Action("GetInfoCode")/${this.selectedTable}`;
+                    this.getCode(path);
+                },
+                //下载
+                download: function () {
+                    if (this.codeType == "") return;
+
+                    var path = `@Url.Action("Download")`;
+                    hzyAdmin.download(path, {
+                        TableName: this.selectedTable,
+                        CodeType: this.codeType,
+                        Content: this.code
+                    });
+                },
+                //下载所有
+                downloadAll: function () {
+                    if (this.codeType == "") return;
+
+                    var path = `@Url.Action("DownloadAll")/${this.codeType}`;
+                    hzyAdmin.download(path);
+                }
+            }
+        });
+    </script>
+}
+<div class="m-0" id="app">
+    <div class="container-fluid">
+        <div class="cct">
+            <div class="cct-tables">
+                <div class="bg-red-800 p-5 font-size-16 text-center">表&nbsp;></div>
+                <ul>
+                    <li v-for="(item,index) in tables" @@click="onSelectedTable(item);" :class="selectedTable==item?'cctActive':''">{{item}}</li>
+                </ul>
+            </div>
+            <div class="cct-fields">
+                <div class="bg-red-700 p-5 font-size-16 text-center">表字段&nbsp;></div>
+                <ul>
+                    <li v-for="(item,index) in fields">
+                        <el-row type="flex">
+                            <el-col :span="10">{{item.ColName}}</el-col>
+                            <el-col :span="7"> <el-divider direction="vertical"></el-divider>{{item.ColType}}</el-col>
+                            <el-col :span="7">
+                                <div v-if="item.ColIsKey==1"> <el-divider direction="vertical"></el-divider><el-tag type="danger">主键</el-tag></div>
+                                <div v-else> <el-divider direction="vertical"></el-divider>{{item.ColRemark}}</div>
+                            </el-col>
+                        </el-row>
+                    </li>
+                </ul>
+            </div>
+            <div class="cct-tools">
+                <div class="bg-red-600 p-5 font-size-16 text-center">代码类型&nbsp;></div>
+                <ul>
+                    <li @@click="onSelectedTab(1)" :class="selectedTab==1?'cctActive':''">1&nbsp;>&nbsp;HZY.Models</li>
+                    <li @@click="onSelectedTab(2)" :class="selectedTab==2?'cctActive':''">2&nbsp;>&nbsp;HZY.EFCore.DbSet</li>
+                    <li @@click="onSelectedTab(3)" :class="selectedTab==3?'cctActive':''">3&nbsp;>&nbsp;HZY.Services</li>
+                    @*<li @@click="onSelectedTab(4)" :class="selectedTab==4?'cctActive':''">4&nbsp;>&nbsp;HZY.Services.Register</li>*@
+                    <li @@click="onSelectedTab(5)" :class="selectedTab==5?'cctActive':''">4&nbsp;>&nbsp;HZY.Admin.Controllers</li>
+                    <li @@click="onSelectedTab(6)" :class="selectedTab==6?'cctActive':''">5&nbsp;>&nbsp;HZY.Admin.Index.cshtml</li>
+                    <li @@click="onSelectedTab(7)" :class="selectedTab==7?'cctActive':''">6&nbsp;>&nbsp;HZY.Admin.Info.cshtml</li>
+                </ul>
+                <div class="bg-primary-500 p-5 font-size-16 text-center download" @@click="download" v-show="codeType != ''">下载当前</div>
+                <div class="bg-primary-700 p-5 font-size-16 text-center downloadAll" @@click="downloadAll" v-show="codeType != ''">下载全部</div>
+            </div>
+            <div class="cct-codes">
+                <textarea v-model="code"></textarea>
+            </div>
+        </div>
+    </div>
+</div>

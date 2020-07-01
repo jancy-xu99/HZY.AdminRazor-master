@@ -1,0 +1,188 @@
+﻿
+@model int
+@{
+    ViewData["Title"] = "ActManage";
+}
+
+<link rel="stylesheet" href="~/admin/libs/neditor/dialogs/xiumi-ue-v5.css" />
+<!-- 配置文件 -->
+<script src="~/admin/libs/neditor/neditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script src="~/admin/libs/neditor/neditor.all.min.js"></script>
+<script src="~/admin/libs/neditor/i18n/zh-cn/zh-cn.js"></script>
+<script src="~/admin/libs/neditor/dialogs/xiumiinternal.js"></script>
+<script src="~/admin/libs/neditor/dialogs/xiumi-ue-dialog-v5.js"></script>
+
+
+
+@section Scripts{
+    <script type="text/javascript">
+
+        let ueditor_config = {
+            serverUrl: "/ueditor?_csrf={{ ctx.csrf | safe }}",
+            initialFrameWidth: 700,
+            initialFrameHeight: 320,
+            autoHeightEnabled: true
+        };
+        //实例化编辑器{}
+        var ue = UE.getEditor('editor', ueditor_config);
+    </script>
+
+    <script type="text/javascript">
+    var power = JSON.parse('@Html.Raw(ViewData["power"])');
+    var app = new Vue({
+        el: "#app",
+        data: function () {
+
+            return {
+                    power,
+                    form: {
+                        saveState: false,
+                        vm: {
+                            Id: '@Model',
+                            ActId:'',
+                            Model: {},
+                            User: {}
+                        },
+                        Photo: null,
+                        Files: [],
+                        FilesName: [],
+                        editor: {}
+                    }
+                }
+        },
+        created: function () {
+                this.loadForm();
+        },
+        mounted: function () {
+            var _this = this;
+
+
+            var ueditor_config = {
+                serverUrl: "/ueditor?_csrf={{ ctx.csrf | safe }}",
+                initialFrameWidth: 700,
+                initialFrameHeight: 320,
+                autoHeightEnabled: true
+            };
+                //编辑器 配置
+            this.form.editor = UE.getEditor('Design_Introduce',ueditor_config);
+
+             //获取当前网址，如： http://localhost:8083/uimcardprj/share/meun.jsp
+            var curWwwPath=window.document.location.href;
+            //获取主机地址之后的目录，如： uimcardprj/share/meun.jsp
+            var pathName=window.document.location.pathname;
+            var pos=curWwwPath.indexOf(pathName);
+            //获取主机地址，如： http://localhost:8083
+            var localhostPaht=curWwwPath.substring(0,pos);
+            this.form.editor.addListener('blur', function (e) {
+                _this.form.vm.Model.Design_Introduce = _this.form.editor.getContent().replace("/Uploads/",localhostPaht+"/Uploads/");
+                });
+        },
+        methods: {
+            loadForm: function () {
+                var path = `@Url.Action("LoadForm")/${this.form.vm.Id}`;
+
+
+                @*var path = `@Url.Action("ActManage")/${this.form.vm.Model.ActId}`;*@
+                var curWwwPath=window.document.location.href;
+                //获取主机地址之后的目录，如： uimcardprj/share/meun.jsp
+                var pathName=window.document.location.pathname;
+                var pos=curWwwPath.indexOf(pathName);
+                //获取主机地址，如： http://localhost:8083
+                var localhostPaht=curWwwPath.substring(0,pos);
+                var _this = this;
+
+                hzyAdmin.post(path, {}, function (r) {
+                    if (r.status != 1) return;
+                    _this.form.vm = r.data;
+                    //处理文件
+                    //if (_this.form.vm.Model.Member_FilePath) _this.form.FilesName = _this.form.vm.Model.Member_FilePath.split(',');
+                    //处理编辑器值
+
+                    setTimeout(function () {
+                        _this.form.editor.setContent(_this.form.vm.Model.Design_Introduce ? _this.form.vm.Model.Design_Introduce.replace("/Uploads/",localhostPaht+"/Uploads/") : "");
+                       // _this.form.editor.setContent(_this.form.vm.Model.Design_Introduce ? _this.form.vm.Model.Design_Introduce.replace(/'/g, '\'') : "");
+                    }, 200);
+                });
+            },
+            closeWindow: function (delay = 0) {
+                setTimeout(function () {
+                    hzyAdmin.layer.close(hzyAdmin.layer.getFrameIndex(window.name));
+                }, delay);
+            },
+            save: function () {
+                var path = `@Url.Action("SaveDesign")/${this.form.vm.ActId}`;
+                var _this = this;
+
+
+                //组装数据
+                var formData = new FormData();
+                for (var key in this.form.vm.Model) {
+                    var value = this.form.vm.Model[key];
+
+
+
+                    if (key=="Design_Introduce") {
+                        formData.append(key, value ? value : '');
+                    }
+
+                    //var value = this.form.vm.Model[key];
+
+                }
+                //formData.append("ActId", _this.form.vm.Id);
+                //formData.append("Design_Introduce", _this.form.vm.Model["Design_Introduce"]);
+
+
+                if (this.form.Photo) formData.append('Photo', this.form.Photo);
+
+                for (var i = 0; i < this.form.Files.length; i++) {
+                    var item = this.form.Files[i];
+                    formData.append('Files[' + i + ']', item);
+                }
+
+                this.form.saveState = true;
+                //hzyAdmin.upload(path, formData, function (r) {
+                //    _this.form.saveState = false;
+                //    if (r.status == 1) {
+                //        hzyAdmin.alert('保存成功', '成功');
+                //        //关闭当前窗口
+                //        _this.closeWindow();
+                //    }
+                //});
+
+                hzyAdmin.post(path, formData, function (r) {
+                        _this.form.saveState = false;
+                        if (r.status == 1) {
+                            hzyAdmin.alert('保存成功', '成功');
+                            //关闭当前窗口
+                            _this.closeWindow();
+                        }
+                    });
+            }
+        }
+
+
+    })
+    </script>
+}
+<div class="m-20 hzyAdminForm" id="app">
+    @*<el-input type="hidden" v-model="form.vm.Id"></el-input>*@
+    <div class="container-fluid">
+        <div class="col-sm-12">
+            <h4 class="example-title">页面设计</h4>
+
+            <script id="Design_Introduce" name="Design_Introduce" style="width:100%;height:300px" type="text/plain">
+            </script>
+        </div>
+    </div>
+    <div class="hzyAdminForm-footer">
+        <div class="row">
+            <div class="col-sm-6"></div>
+            <div class="col-sm-6 text-right">
+                <button class="btn btn-primary" @@click="save" v-bind:disabled="form.saveState" v-if="power.Save">保存</button>
+                <button class="btn btn-danger" @@click="closeWindow()">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewData["Title"] = "WxOauth";
+}
+
+<h1>WxOauth</h1>
+<head>
+    @*<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @{
+        var code = HttpContext.Current.Request["code"];
+        
+        string urlpath = HttpContext.Request.Url.AbsoluteUri.ToString();
+        ViewBag.at = ContextGetOpenID(urlpath, code);
+    }*@
+</head>
+

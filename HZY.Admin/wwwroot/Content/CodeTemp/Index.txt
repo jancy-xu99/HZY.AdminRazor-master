@@ -1,0 +1,162 @@
+﻿@section Styles{
+
+}
+@section Scripts{
+    <script type="text/javascript">
+        var power = JSON.parse('@Html.Raw(ViewData["power"])');
+        var isFindback = '@(ViewData["isFindback"])';
+        var app = new Vue({
+            el: "#app",
+            data: function () {
+                return {
+                    power,
+                    search: {
+                        state:false,
+                        vm: {
+                            Name: null
+                        }
+                    },
+                    table: {
+                        columns: [],
+                        data: [],
+                        page: 1,
+                        rows: 15,
+                        totalCount: 0,
+                        selecteds: []//选中的行
+                    }
+                }
+            },
+            //dom 创建
+            created: function () {
+                this.findList();
+            },
+            //dom渲染完成
+            mounted: function () {
+
+            },
+            methods: {
+                //获取列表
+                findList: function () {
+                    var _this = this;
+                    var path = `@Url.Action("FindList")/${_this.table.page}/${_this.table.rows}`;
+
+                    hzyAdmin.post(path, _this.search.vm, function (r) {
+                        if (r.status != 1) return;
+                        _this.table.data = r.data.DataSource;
+                        _this.table.totalCount = r.data.TotalCount;
+                        _this.table.columns = r.data.Cols;
+                    });
+                },
+                //重置
+                reset: function () {
+                    for (var item in this.search.vm) this.search.vm[item] = null;
+                    this.findList();
+                },
+                //删除
+                remove: function (id) {
+                    var _this = this;
+                    var ids = [];
+                    if (id) {
+                        ids.push(id);
+                    } else {
+                        var selecteds = this.table.selecteds;
+                        if (selecteds.length == 0) return hzyAdmin.alert("请勾选要删除得数据!", "错误");
+                        for (var i = 0; i < selecteds.length; i++) {
+                            ids.push(selecteds[i]._ukid);
+                        }
+                    }
+                    if (confirm("确定要删除吗?")) {
+                        //请求接口删除
+                        var path = `@Url.Action("Delete")`;
+
+                        hzyAdmin.post(path, ids, function (r) {
+                            if (r.status != 1) return;
+                            hzyAdmin.alert("删除成功!", "成功");
+                            _this.findList();
+                        });
+                    }
+                },
+                openForm: function (id) {
+                    var path = `@Url.Action("Info")/${(id ? id : '')}`;
+                    var _this = this;
+
+                    hzyAdmin.openPage(id ? '编辑' : '新建', path, function () {
+                        _this.findList();//刷新列表
+                    });
+                },
+                //双击表格行
+                row_dblclick: function (row, column, event) {
+                    if (isFindback == 1) {
+                        window.localStorage.setItem('findback', JSON.stringify(row));
+                        setTimeout(function () {
+                            hzyAdmin.layer.close(hzyAdmin.layer.getFrameIndex(window.name));
+                        }, 100);
+                    }
+                }
+            }
+        });
+    </script>
+}
+<div class="m-20" id="app">
+    <div class="container-fluid">
+        <div class="card mb-15" v-show="search.state">
+            <div class="card-body">
+                <div class="card-title">高级检索</div>
+                <div class="row">
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" v-model="search.vm.Name" placeholder="请根据业务编辑检索框">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-primary" @@click="findList">检索</button>&nbsp;
+                        <button type="button" class="btn btn-secondary" @@click="reset">重置</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="card m-0">
+            <div class="card-body">
+                <div class="row mb-15">
+                    <div class="col-sm-12">
+                        <button class="btn btn-primary" @@click="search.state=!search.state" v-if="power.Search">高级检索</button>
+                        <button class="btn btn-primary" @@click="openForm()" v-if="power.Insert">新建</button>
+                        <button class="btn btn-danger" @@click="remove()" v-if="power.Delete">删除</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <el-table :data="table.data"
+                                  @@selection-change="(array)=>{table.selecteds=array;}"
+                                  @@row-dblclick="row_dblclick"
+                                  row-key="_ukid">
+                            <el-table-column type="index" width="50" fixed></el-table-column>
+                            <el-table-column type="selection" width="50" fixed></el-table-column>
+                            <!--根据查询接口自动加载头部信息 start-->
+                            <el-table-column v-for="(item,index) in table.columns" :prop="item.DataIndex" :label="item.Title" :key="index" v-if="item.Show"></el-table-column>
+                            <!--根据查询接口自动加载头部信息 end-->
+                            <el-table-column fixed="right" label="操作" width="100">
+                                <template slot-scope="scope">
+                                    <el-link type="primary" @@click="openForm(scope.row._ukid)" v-if="power.Update">编辑</el-link>
+                                    <el-link type="danger" @@click="remove(scope.row._ukid)" v-if="power.Delete">删除</el-link>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                        <el-pagination @@size-change="(val)=>{table.rows=val;findList();}"
+                                       @@current-change="(val)=>{table.page=val;findList();}"
+                                       :current-page="table.page"
+                                       :page-sizes="[10, 15, 20, 50, 100, 200, 300, 400, 1000]"
+                                       :page-size="table.rows"
+                                       layout="total, sizes, prev, pager, next, jumper"
+                                       :total="table.totalCount"
+                                       class="mt-10">
+                        </el-pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
